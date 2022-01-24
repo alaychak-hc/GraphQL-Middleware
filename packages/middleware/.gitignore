@@ -1,0 +1,36 @@
+# Ignore all NodeJS libraries
+node_modules
+
+# Ignore VS Code project settings, except the suggested extensions (for new users)
+.vscode
+!.vscode/extensions.json
+
+# Ignore all environment files
+.env
+
+# Ignore KnexJS configuration files
+knexfile.ts
+
+# Ignore all certificate files (for HTTPS and Authhorization)
+**/cert/**/*
+
+# Ignore history files (from the File History extension, if enabled)
+**/.history
+
+# Ignore all log files (that were created using the logger)
+**/logs
+
+# Ignore all output files (e.g. line count/lint)
+out
+
+# Ignore developer documentation files (these are auto-generated)
+docs/developer
+
+# Ignore GraphQL schema file (created in local/development environments)
+schema.gql
+
+# Ignore developer notes
+notes.txt
+
+# Ignore .npmrc file
+.npmrc

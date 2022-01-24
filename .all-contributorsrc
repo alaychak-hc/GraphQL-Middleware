@@ -1,0 +1,25 @@
+{
+  "projectName": "GraphQL Middleware",
+  "projectOwner": "alaychak-hc",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "alaychak-hc",
+      "name": "Andrew Laychak",
+      "avatar_url": "https://avatars.githubusercontent.com/u/90005942?v=4",
+      "profile": "https://github.com/alaychak-hc",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}

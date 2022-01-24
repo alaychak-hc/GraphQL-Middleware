@@ -1,0 +1,72 @@
+#   Author: Andrew Laychak
+#   Email: ALaychak@HarrisComputer.com
+#
+#   Created At: 10-19-2021 11:15:24 AM
+#   Last Modified: 10-20-2021 15:44:29 PM
+#   Last Updated By: Andrew Laychak
+#
+#   Description: Builds the documentation for the API
+#
+#   References:
+#     - https://docs.github.com/en/actions/learn-github-actions/expressions
+
+name: Build Documentation
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-documentation:
+    name: Build Documentation
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: './packages/api'
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT }}
+          fetch-depth: 0
+          ref: ${{github.event.pull_request.head.ref}}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache .pnpm-store
+        uses: actions/cache@v1
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Install pnpm
+        run: curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@6
+
+      - name: Install all dependencies
+        run: pnpm install --no-prefer-frozen-lockfile --ignore-scripts --filter @caretracker/fhir-api
+
+      - name: Rename Knex sample file (required for build)
+        run: |
+          mv ./knexfile.sample.ts ./knexfile.ts
+
+      - name: Build documentation (TypeDoc)
+        run: pnpm docs:build --filter @caretracker/fhir-api
+
+      - name: Commit Documentation
+        run: |
+          git config advice.ignoredHook false
+          git config --local user.name 'github-actions[bot]'
+          git config --local user.email 'github-actions[bot]@users.noreply.github.com'
+          git add ./docs/developer --force
+          git add ./typedoc.json --force
+          git commit -m 'docs(developer): Auto build documentation (via GitHub Actions)' --dry-run --verbose

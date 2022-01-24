@@ -1,0 +1,56 @@
+# region Developer Information
+# ----------------------------------------
+#    Author: Andrew Laychak
+#    Email: ALaychak@harriscomputer.com
+#
+#    Created At: 01-05-2022 04:45:03 PM
+#    Last Modified: 01-05-2022 04:45:18 PM
+#    Last Updated By: Andrew Laychak
+#
+#    Description: Settings for the dependabot (automatically manages node modules)
+#
+#    References:
+#      - https://docs.github.com/en/actions/learn-github-actions/expressions
+# ----------------------------------------
+# #endregion
+
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    versioning-strategy: increase
+    schedule:
+      interval: 'weekly'
+      day: 'sunday'
+      time: '18:00'
+      timezone: 'US/Eastern'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
+    open-pull-requests-limit: 10
+
+  - package-ecosystem: 'npm'
+    directory: '/documentation/website'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
+    schedule:
+      interval: 'weekly'
+      day: 'sunday'
+      time: '18:00'
+      timezone: 'US/Eastern'
+
+  - package-ecosystem: 'npm'
+    directory: '/packages/api'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
+    schedule:
+      interval: 'weekly'
+      day: 'sunday'
+      time: '18:00'
+      timezone: 'US/Eastern'

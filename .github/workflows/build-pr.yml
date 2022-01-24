@@ -1,0 +1,85 @@
+#   Author: Andrew Laychak
+#   Email: ALaychak@HarrisComputer.com
+#
+#   Created At: 10-19-2021 9:45:54 AM
+#   Last Modified: 10-22-2021 16:40:46 PM
+#   Last Updated By: Andrew Laychak
+#
+#   Description: Builds a pull request to verify it works with the new code
+#
+#   References:
+#     - None
+
+name: Build Pull Request
+
+on:
+  pull_request_target:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: './packages/api'
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT }}
+          fetch-depth: 0
+          ref: ${{github.event.pull_request.head.ref}}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            website:
+              - 'documentation/website/**'
+            api:
+              - 'packages/api/**'
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache .pnpm-store
+        uses: actions/cache@v1
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Install pnpm
+        run: curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@6
+
+      - name: Install all dependencies
+        run: pnpm install --no-prefer-frozen-lockfile --ignore-scripts --filter @caretracker/fhir-api
+
+      - name: Globally install the rimraf package
+        run: pnpm add rimraf --global
+
+      - name: Rename Knex sample file (required for build)
+        if: steps.filter.outputs.api == 'true'
+        run: |
+          mv ./knexfile.sample.ts ./knexfile.ts
+
+      - name: Build documentation (TypeDoc)
+        if: steps.filter.outputs.api == 'true'
+        run: pnpm docs:build --filter @caretracker/fhir-api
+
+      - name: Build project
+        if: steps.filter.outputs.api == 'true'
+        run: pnpm build

@@ -1,0 +1,93 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "airbnb-base",
+    "prettier",
+    "eslint:recommended",
+    "eslint-config-prettier"
+  ],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
+  "plugins": [],
+  "rules": {},
+  "globals": {},
+  "overrides": [
+    {
+      "settings": {
+        "import/resolver": {
+          "typescript": {},
+          "node": {
+            "paths": ["src"],
+            "extensions": [".js", ".jsx", ".ts", ".tsx"]
+          }
+        }
+      },
+      "env": {
+        "browser": true,
+        "commonjs": true,
+        "es2021": true,
+        "node": true
+      },
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "prettier"
+      ],
+      "files": ["**/*.ts", "**/*.tsx"],
+      "globals": {},
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"],
+      "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "ecmaFeatures": {
+          "jsx": true
+        },
+        "project": "./tsconfig.json"
+      },
+      "rules": {
+        "no-underscore-dangle": [
+          1,
+          { "allow": ["__knexUid", "__knexQueryUid"] }
+        ],
+        "import/extensions": [
+          "error",
+          "ignorePackages",
+          {
+            "js": "never",
+            "jsx": "never",
+            "ts": "never",
+            "tsx": "never"
+          }
+        ],
+        "no-use-before-define": [0],
+        "@typescript-eslint/no-use-before-define": [1]
+      }
+    },
+    {
+      "env": {},
+      "extends": ["prettier"],
+      "files": ["**/*.js"],
+      "globals": {},
+      "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+          "jsx": true
+        }
+      },
+      "rules": {
+        "semi": "error"
+      }
+    }
+  ]
+}

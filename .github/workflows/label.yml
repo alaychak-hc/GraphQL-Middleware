@@ -1,0 +1,26 @@
+#   Author: Andrew Laychak
+#   Email: ALaychak@HarrisComputer.com
+#
+#   Created At: 10-20-2021 10:15:14 AM
+#   Last Modified: 10-20-2021 10:23:02 AM
+#   Last Updated By: Andrew Laychak
+#
+#   Description: Attaches proper labels based on changed files
+#
+#   References:
+#     - https://github.com/actions/labeler
+
+name: Pull Request Labeler
+on:
+  - pull_request_target
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/labeler@v2
+        with:
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+          configuration-path: .github/labeler.yml
+          sync-labels: true
