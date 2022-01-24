@@ -5,6 +5,7 @@
     "lib": ["esnext", "esnext.asynciterable"],
     "inlineSourceMap": true,
     "declaration": true,
+    "declarationMap": true,
     "removeComments": true,
     "outDir": "./dist",
     "rootDir": "./",
