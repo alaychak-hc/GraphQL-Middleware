@@ -23,9 +23,7 @@
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "plugins": [
-      { "transform": "typescript-transform-paths", "afterDeclarations": true }
-    ],
+    "plugins": [{ "transform": "typescript-transform-paths" }],
     "types": ["node"]
   },
   "exclude": ["node_modules", "dist", "knexfile.sample.*"]
