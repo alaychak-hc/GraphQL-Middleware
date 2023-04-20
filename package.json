@@ -3,8 +3,9 @@
   "description": "The workspace for the GraphQL-Middleware project",
   "private": true,
   "scripts": {
-    "publish:middleware": "pnpm publish --filter @alaychak-hc/graphql-middleware",
-    "build:middleware": "pnpm build --filter @alaychak-hc/graphql-middleware --filter=!./packages/middleware/dist",
+    "publish:middleware:local": "pnpm --filter @alaychak-hc/graphql-middleware publish --dry-run --force --no-git-checks",
+    "publish:middleware": "pnpm --filter @alaychak-hc/graphql-middleware publish --force --no-git-checks",
+    "build:middleware": "pnpm --filter @alaychak-hc/graphql-middleware --filter=!./packages/middleware/dist build",
     "lint:staged": "pnpm run lint:staged -r --filter=!./packages/middleware/dist",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
@@ -78,14 +79,14 @@
     ]
   },
   "dependencies": {
-    "all-contributors-cli": "^6.20.0",
-    "husky": "^7.0.4",
-    "lint-staged": "^11.2.6",
-    "prettier": "^2.5.1"
+    "all-contributors-cli": "^6.24.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0",
+    "prettier": "^2.8.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.2.1",
-    "@commitlint/config-conventional": "^13.2.0",
-    "typescript": "^4.5.4"
+    "@commitlint/cli": "^17.4.0",
+    "@commitlint/config-conventional": "^17.4.0",
+    "typescript": "^4.9.4"
   }
 }
