@@ -5,7 +5,7 @@
     Email: ALaychak@harriscomputer.com
 
     Created At: 01-24-2022 01:29:28 PM
-    Last Modified: 01-24-2022 01:29:29 PM
+    Last Modified: 04-20-2023 09:43:26 PM
     Last Updated By: Andrew Laychak
 
     Description: Helper file that contains all the middlware functions, making it easier to import specific middleware functions.
@@ -19,9 +19,10 @@
 // #region Imports
 import Timeout from './Timeout';
 import DepthLimit from './Depth Limit';
+import RateLimit from './Rate Limit.js';
 
 // #endregion
 
 // #region Exports
-export { Timeout, DepthLimit };
+export { Timeout, DepthLimit, RateLimit };
 // #endregion

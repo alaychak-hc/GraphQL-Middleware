@@ -5,7 +5,7 @@
     Email: ALaychak@harriscomputer.com
 
     Created At: 01-24-2022 01:29:35 PM
-    Last Modified: 01-24-2022 01:29:38 PM
+    Last Modified: 04-20-2023 09:36:45 PM
     Last Updated By: Andrew Laychak
 
     Description: Middleware that allows specific resolvers to have a depth limit and will throw an error if the depth is too much
@@ -19,10 +19,11 @@
 // #endregion
 
 // #region Imports
+import type { ExtensionsData } from '@interfaces/All.js';
+import type { FieldNode } from 'graphql';
+import { GraphQLError } from 'graphql';
 import _ from 'lodash';
-import { ApolloError } from 'apollo-server-express';
-import { MiddlewareFn } from 'type-graphql';
-import { FieldNode } from 'graphql';
+import type { MiddlewareFn, ResolverData } from 'type-graphql';
 // #endregion
 
 // #region Check Depth
@@ -32,7 +33,7 @@ import { FieldNode } from 'graphql';
  * @param fValue - Object to check the depth of
  * @param cDepth - The current depth of the entire object
  */
-export function checkDepth(fValue: FieldNode, cDepth = 0): number {
+function checkDepth(fValue: FieldNode, cDepth = 0): number {
   let fDepth = cDepth;
 
   if (_.get(fValue, 'selectionSet.selections') !== undefined) {
@@ -55,8 +56,16 @@ export function checkDepth(fValue: FieldNode, cDepth = 0): number {
  * @param depth - The max depth that will be checked against
  */
 // TODO: Revert back to 5
-export function DepthLimit(depth = 15): MiddlewareFn {
-  return async ({ info }, next) => {
+function DepthLimit(depth = 15): MiddlewareFn {
+  return async ({ info }: ResolverData, next) => {
+    let newDepth = depth;
+
+    const { depthLimit } = info.parentType.getFields()[info.fieldName]
+      .extensions as ExtensionsData;
+    if (depthLimit !== undefined) {
+      newDepth = depthLimit;
+    }
+
     let mDepth = 1;
     info.fieldNodes.forEach((fValue: FieldNode) => {
       const fDepth = checkDepth(fValue);
@@ -66,18 +75,21 @@ export function DepthLimit(depth = 15): MiddlewareFn {
       }
     });
 
-    // console.log('Max Depth: ', mDepth);
-    // console.log(info.path);
+    if (mDepth > newDepth) {
+      // message: `${info.fieldName} has a depth of ${mDepth}, which is over the max depth limit of ${depth}`,
+      // type: info.operation.operation,
+      // field: info.fieldName,
 
-    if (mDepth > depth) {
-      throw new ApolloError('Max Depth', 'MD1', {
-        message: `${info.fieldName} has a depth of ${mDepth}, which is over the max depth limit of ${depth}`,
-        type: info.operation.operation,
-        field: info.fieldName,
-      });
+      throw new GraphQLError(
+        `${info.fieldName} has a depth of ${mDepth}, which is over the max depth limit of ${newDepth}`,
+        {
+          extensions: {
+            code: 'MD1',
+          },
+        }
+      );
     }
 
-    // throw new Error('uh oh');
     return next();
   };
 }

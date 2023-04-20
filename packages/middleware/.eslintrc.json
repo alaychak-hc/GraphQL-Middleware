@@ -1,92 +1,45 @@
 {
+  "root": true,
+  "extends": ["@alaychak-hc/eslint-config-monorepo/ts"],
+  "rules": {
+    "etc/no-misused-generics": "off"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "tsconfig.json"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "src"]
+      },
+      "typescript": {
+        "project": "tsconfig.json"
+      }
+    }
+  },
   "env": {
-    "browser": true,
-    "commonjs": true,
-    "es2021": true,
+    "browser": false,
     "node": true
   },
-  "extends": [
-    "airbnb-base",
-    "prettier",
-    "eslint:recommended",
-    "eslint-config-prettier"
-  ],
-  "parser": "@babel/eslint-parser",
-  "parserOptions": {
-    "ecmaVersion": 2020
-  },
-  "plugins": [],
-  "rules": {},
-  "globals": {},
   "overrides": [
     {
-      "settings": {
-        "import/resolver": {
-          "typescript": {},
-          "node": {
-            "paths": ["src"],
-            "extensions": [".js", ".jsx", ".ts", ".tsx"]
-          }
-        }
-      },
-      "env": {
-        "browser": true,
-        "commonjs": true,
-        "es2021": true,
-        "node": true
-      },
-      "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
-        "prettier"
-      ],
-      "files": ["**/*.ts", "**/*.tsx"],
-      "globals": {},
-      "parser": "@typescript-eslint/parser",
-      "plugins": ["@typescript-eslint"],
+      "files": ["src/__tests__/**/*.{ts,js}"],
       "parserOptions": {
-        "ecmaVersion": 2020,
-        "sourceType": "module",
-        "ecmaFeatures": {
-          "jsx": true
-        },
-        "project": "./tsconfig.json"
+        "project": "src/__tests__/tsconfig.json"
       },
       "rules": {
-        "no-underscore-dangle": [
-          1,
-          { "allow": ["__knexUid", "__knexQueryUid"] }
-        ],
-        "import/extensions": [
+        "class-methods-use-this": "off",
+        "import/no-cycle": "off",
+        // "max-classes-per-file": "off",
+        // "max-statements": "off",
+        "import/no-unused-modules": [
           "error",
-          "ignorePackages",
           {
-            "js": "never",
-            "jsx": "never",
-            "ts": "never",
-            "tsx": "never"
+            "unusedExports": true,
+            "ignoreExports": ["src/start.ts"]
           }
-        ],
-        "no-use-before-define": [0],
-        "@typescript-eslint/no-use-before-define": [1]
-      }
-    },
-    {
-      "env": {},
-      "extends": ["prettier"],
-      "files": ["**/*.js"],
-      "globals": {},
-      "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module",
-        "ecmaFeatures": {
-          "jsx": true
-        }
-      },
-      "rules": {
-        "semi": "error"
+        ]
       }
     }
   ]

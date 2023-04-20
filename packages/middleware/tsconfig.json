@@ -15,6 +15,7 @@
     "baseUrl": "./",
     "paths": {
       "@middleware/*": ["src/middleware/*"],
+      "@interfaces/*": ["src/interfaces/*"],
       "@src/*": ["src/*"],
       "@root/*": ["./*"]
     },

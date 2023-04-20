@@ -9,7 +9,7 @@
     Email: ALaychak@harriscomputer.com
 
     Created At: 01-24-2022 01:29:43 PM
-    Last Modified: 01-24-2022 01:29:50 PM
+    Last Modified: 04-20-2023 09:21:55 PM
     Last Updated By: Andrew Laychak
 
     Description: Middleware that allows specific resolvers to time-out after a specific amount of time
@@ -21,7 +21,7 @@
 // #endregion
 
 // #region Imports
-import { ApolloError } from 'apollo-server-express';
+import { GraphQLError } from 'graphql';
 import { MiddlewareFn } from 'type-graphql';
 // #endregion
 
@@ -41,13 +41,16 @@ function Timeout(timeout = 180000): MiddlewareFn {
         setTimeout(
           () =>
             reject(
-              new ApolloError('Timeout', 'TO1', {
-                message: `${info.fieldName} has timed out after ${
+              new GraphQLError(
+                `${info.fieldName} has timed out after ${
                   timeout / 1000
                 } ${tSecondsMessage}`,
-                type: info.operation.operation,
-                field: info.fieldName,
-              })
+                {
+                  extensions: {
+                    code: 'TIMEOUT_EXCEEDED',
+                  },
+                }
+              )
             ),
           timeout
         )
