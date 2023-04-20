@@ -5,7 +5,7 @@
     Email: ALaychak@harriscomputer.com
 
     Created At: 01-24-2022 01:29:35 PM
-    Last Modified: 04-20-2023 09:36:45 PM
+    Last Modified: 04-20-2023 09:47:31 PM
     Last Updated By: Andrew Laychak
 
     Description: Middleware that allows specific resolvers to have a depth limit and will throw an error if the depth is too much
@@ -84,7 +84,7 @@ function DepthLimit(depth = 15): MiddlewareFn {
         `${info.fieldName} has a depth of ${mDepth}, which is over the max depth limit of ${newDepth}`,
         {
           extensions: {
-            code: 'MD1',
+            code: 'MAX_DEPTH_EXCEEDED',
           },
         }
       );

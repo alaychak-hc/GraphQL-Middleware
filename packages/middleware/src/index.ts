@@ -5,7 +5,7 @@
     Email: ALaychak@harriscomputer.com
 
     Created At: 01-28-2022 09:50:55 AM
-    Last Modified: 01-28-2022 09:51:11 AM
+    Last Modified: 04-20-2023 09:48:29 PM
     Last Updated By: Andrew Laychak
 
     Description: Index file for the middleware package
@@ -17,9 +17,9 @@
 // #endregion
 
 // #region Imports
-import { Timeout, DepthLimit } from './middleware/All';
+import { Timeout, DepthLimit, RateLimit } from './middleware/All';
 // #endregion
 
 // #region Exports
-export { Timeout, DepthLimit };
+export { Timeout, DepthLimit, RateLimit };
 // #endregion
