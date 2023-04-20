@@ -5,7 +5,7 @@
     Email: ALaychak@harriscomputer.com
 
     Created At: 01-24-2022 01:29:35 PM
-    Last Modified: 04-20-2023 09:47:31 PM
+    Last Modified: 04-20-2023 11:05:24 PM
     Last Updated By: Andrew Laychak
 
     Description: Middleware that allows specific resolvers to have a depth limit and will throw an error if the depth is too much
@@ -19,7 +19,7 @@
 // #endregion
 
 // #region Imports
-import type { ExtensionsData } from '@interfaces/All.js';
+import type { ExtensionsData } from '../interfaces/All.js';
 import type { FieldNode } from 'graphql';
 import { GraphQLError } from 'graphql';
 import _ from 'lodash';

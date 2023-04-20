@@ -1,24 +1,15 @@
 {
   "name": "@alaychak-hc/graphql-middleware",
-  "version": "0.0.1-2",
-  "description": "GraphQL middleware for Apollo Server v3",
+  "version": "0.0.1-9",
+  "description": "GraphQL middleware for Apollo Server",
   "scripts": {
     "prepublish": "pnpm build",
-    "build": "pnpm clean && ttsc",
-    "build2": "pnpm typedoc && pnpm clean && ttsc && pnpm copy-files",
+    "postpublish": "pnpm clean",
+    "build": "pnpm clean && tsc",
     "build:pack": "pnpm build && pnpm pack && pnpm clean",
-    "clean": "rimraf ./dist",
-    "copy-files": "cpy ./knexfile.ts ./dist",
-    "copy-files2": "copyfiles -u 1 src/docs/general/**/* ./dist/",
-    "start": "ts-node --transpile-only src/start.ts",
-    "start-dev": "tsnd --respawn -r tsconfig-paths/register --clear --transpile-only src/start.ts",
-    "start-dev-original": "ts-node-dev --clear --transpile-only src/start.ts",
-    "test": "jest --watch",
-    "jest-clean": "jest --clearCache",
+    "clean": "rimraf ./lib",
     "lint:staged": "lint-staged --debug --verbose",
-    "lint": "eslint src --ext .ts --ignore-pattern __tests__/ --ignore-pattern migrations/ --output-file out/lint.html --format html",
-    "typedoc2": "typedoc --entryPoints \"./\" --exclude \"**/node_modules/**/*\" --out ./docs/general/",
-    "typedoc": "rimraf ./src/docs/general && typedoc"
+    "lint": "eslint src --ext .ts --ignore-pattern __tests__/ --ignore-pattern migrations/ --output-file out/lint.html --format html"
   },
   "author": "alaychak-hc",
   "license": "MIT",
@@ -34,12 +25,8 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "type": "module",
-  "exports": "./dist/src/start.js",
-  "files": [
-    "dist/"
-  ],
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "exports": "./lib/types.js",
+  "types": "./lib/types.d.ts",
   "lint-staged": {
     "**/*.ts": [
       "ttsc --noEmit",
@@ -54,10 +41,6 @@
     "singleQuote": true,
     "tabWidth": 2,
     "trailingComma": "es5"
-  },
-  "_moduleAliases": {
-    "@middleware/*": "src/middleware/*",
-    "@src/*": "src/*"
   },
   "dependencies": {
     "@alaychak-hc/eslint-config-monorepo": "0.0.1-7",
@@ -78,17 +61,12 @@
     "@types/lodash": "^4.14.194",
     "@types/ms": "^0.7.31",
     "@types/node": "^18.15.12",
-    "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
     "cpy-cli": "^4.2.0",
     "eslint": "^8.38.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-import": "^2.27.5",
     "ts-node": "^10.4.0",
-    "ts-node-dev": "^2.0.0",
-    "ttypescript": "^1.5.13",
     "typedoc": "^0.24.4",
     "typescript": "^5.0.4",
     "typescript-transform-paths": "^3.4.6"

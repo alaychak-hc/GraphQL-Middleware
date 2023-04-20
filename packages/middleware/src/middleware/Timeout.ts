@@ -5,7 +5,7 @@
   Email: ALaychak@HarrisComputer.com
   
   Created At: 04-20-2023 09:50:51 PM
-  Last Modified: 04-20-2023 10:03:03 PM
+  Last Modified: 04-20-2023 11:06:34 PM
   Last Updated By: Andrew Laychak
   
   Description: Middleware that allows specific resolvers to time-out after a specific amount of time
@@ -17,7 +17,7 @@
 // #endregion
 
 // #region Imports
-import type { ExtensionsData } from '@interfaces/All.js';
+import type { ExtensionsData } from '../interfaces/All.js';
 import { GraphQLError } from 'graphql';
 import ms from 'ms';
 import type { MiddlewareFn, ResolverData } from 'type-graphql';
