@@ -5,6 +5,7 @@
   "scripts": {
     "publish:middleware:local": "pnpm --filter @alaychak-hc/graphql-middleware publish --dry-run --force --no-git-checks",
     "publish:middleware": "pnpm --filter @alaychak-hc/graphql-middleware publish --force --no-git-checks",
+    "publish:middleware:dev": "pnpm --filter @alaychak-hc/graphql-middleware publish --force --no-git-checks --publish-branch=dev",
     "build:middleware": "pnpm --filter @alaychak-hc/graphql-middleware --filter=!./packages/middleware/dist build",
     "lint:staged": "pnpm run lint:staged -r --filter=!./packages/middleware/dist",
     "contributors:add": "all-contributors add",
