@@ -5,7 +5,7 @@
   Email: ALaychak@HarrisComputer.com
   
   Created At: 04-20-2023 09:32:22 PM
-  Last Modified: 04-20-2023 11:05:31 PM
+  Last Modified: 04-23-2023 11:15:59 PM
   Last Updated By: Andrew Laychak
   
   Description: 
@@ -119,7 +119,6 @@ function RateLimit<T>(options?: RateLimitOptions): MiddlewareFn {
     if (identifyContext !== undefined) {
       user = identifyContext(context as T);
     }
-    console.log('USER: ', user);
 
     const uniqueKey = `${prefix}:${user}:${fieldNameKey}`;
 
