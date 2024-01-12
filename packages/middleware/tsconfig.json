@@ -1,31 +1,41 @@
 {
+  "ts-node": {
+    "transpileOnly": true,
+    "swc": true,
+    "esm": true,
+    "experimentalPathMapping": "both",
+    "require": ["tsconfig-paths/register"],
+    "files": true,
+    "compilerOptions": {}
+  },
   "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-    "lib": ["esnext", "esnext.asynciterable"],
-    "inlineSourceMap": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "strictNullChecks": true,
+    "moduleResolution": "NodeNext",
+    "maxNodeModuleJsDepth": 10,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
     "declaration": true,
     "declarationMap": true,
-    "removeComments": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
+    // "sourceMap": true,
+    // "inlineSourceMap": true,
+    // "inlineSources": true,
+    // "emitDeclarationOnly": true,
+    // "outFile": "./lib/types.d.ts",
+    // "declarationDir": "./types",
     "baseUrl": "./",
+    "outDir": "./lib",
     "paths": {
       "@middleware/*": ["src/middleware/*"],
       "@interfaces/*": ["src/interfaces/*"],
       "@src/*": ["src/*"],
       "@root/*": ["./*"]
     },
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "plugins": [{ "transform": "typescript-transform-paths" }],
-    "types": ["node"]
+    "types": ["node"],
+    "plugins": [{ "transform": "typescript-transform-paths" }]
   },
-  "exclude": ["node_modules", "dist", "knexfile.sample.*"]
+  // "include": ["src/**/*", "src", "types", "package.json"],
+  "exclude": ["node_modules", "lib"]
 }

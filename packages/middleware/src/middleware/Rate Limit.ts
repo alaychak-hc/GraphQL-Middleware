@@ -5,7 +5,7 @@
   Email: ALaychak@HarrisComputer.com
   
   Created At: 04-20-2023 09:32:22 PM
-  Last Modified: 04-20-2023 09:41:27 PM
+  Last Modified: 04-23-2023 11:15:59 PM
   Last Updated By: Andrew Laychak
   
   Description: 
@@ -38,11 +38,11 @@
 // #region Imports
 import type { MiddlewareFn, ResolverData } from 'type-graphql';
 import NodeCache from 'node-cache';
-import type { ExtensionsData, RateLimitOptions } from '@interfaces/All.js';
+import type { ExtensionsData, RateLimitOptions } from '../interfaces/All.js';
 import { GraphQLError } from 'graphql';
 import ms from 'ms';
 import ip from 'ip';
-import Redis from 'ioredis';
+import { Redis } from 'ioredis';
 // #endregion
 
 // #region Node IP - Expands
@@ -119,7 +119,6 @@ function RateLimit<T>(options?: RateLimitOptions): MiddlewareFn {
     if (identifyContext !== undefined) {
       user = identifyContext(context as T);
     }
-    console.log('USER: ', user);
 
     const uniqueKey = `${prefix}:${user}:${fieldNameKey}`;
 
